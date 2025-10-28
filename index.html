@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>khiva_saroy_restaurant</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Helvetica Neue, Arial, Noto Sans, sans-serif;
+      background-image: url('https://res.cloudinary.com/dsfjba640/image/upload/v1757185033/bg-mainer-Bzc1wN1C.webp');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header, .footer {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid #374151;
+      padding: 12px;
+      color: white;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 80rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .controls button {
+      background: #374151;
+      color: #d1d5db;
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .controls button:hover { background: #4b5563; }
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 16px;
+    }
+    .flipbook {
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 12px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .nav-btn.left { left: 16px; }
+    .nav-btn.right { right: 16px; }
+    .progress-bar {
+      background: #374151;
+      height: 8px;
+      border-radius: 9999px;
+      overflow: hidden;
+      flex: 1;
+      max-width: 28rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, #16a34a, #15803d);
+      transition: width 0.3s ease;
+    }
+    .page {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+    }
+    .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+  <base target="_blank">
+</head>
+<body>
+  <div class="header">
+    <h1>khiva restaurant</h1>
+    <div class="controls">
+      <button id="zoomOut">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M8 11h6"/>
+        </svg>
+      </button>
+      <span id="zoomLevel">100%</span>
+      <button id="zoomIn">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6m-3-3h6"/>
+        </svg>
+      </button>
+      <button id="resetZoom">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="main">
+    <button class="nav-btn left" id="prevBtn">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <div class="flipbook" id="flipbook">
+      <!-- 1–20 gacha rasmlar -->
+      <div class="page"><img src="1.jpg" alt="page 1"/></div>
+      <div class="page"><img src="2.jpg" alt="page 2"/></div>
+      <div class="page"><img src="3.jpg" alt="page 3"/></div>
+      <div class="page"><img src="4.jpg" alt="page 4"/></div>
+      <div class="page"><img src="5.jpg" alt="page 5"/></div>
+      <div class="page"><img src="6.jpg" alt="page 6"/></div>
+      <div class="page"><img src="7.jpg" alt="page 7"/></div>
+      <div class="page"><img src="8.jpg" alt="page 8"/></div>
+      <div class="page"><img src="9.jpg" alt="page 9"/></div>
+      <div class="page"><img src="10.jpg" alt="page 10"/></div>
+      <div class="page"><img src="11.jpg" alt="page 11"/></div>
+      <div class="page"><img src="12.jpg" alt="page 12"/></div>
+      <div class="page"><img src="13.jpg" alt="page 13"/></div>
+      <div class="page"><img src="14.jpg" alt="page 14"/></div>
+      <div class="page"><img src="15.jpg" alt="page 15"/></div>
+      <div class="page"><img src="16.jpg" alt="page 16"/></div>
+      <div class="page"><img src="17.jpg" alt="page 17"/></div>
+      <div class="page"><img src="18.jpg" alt="page 18"/></div>
+      <div class="page"><img src="19.jpg" alt="page 19"/></div>
+      <div class="page"><img src="20.jpg" alt="page 20"/></div>
+    </div>
+
+    <button class="nav-btn right" id="nextBtn">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path d="m9 18 6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="footer">
+    <div style="max-width: 80rem; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 16px;">
+      <span style="color: #d1d5db; font-size: 14px;">Progress:</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+      </div>
+      <span style="color: #d1d5db; font-size: 14px;" id="progressText">0%</span>
+    </div>
+  </div>
+
+  <!-- PageFlip JS -->
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+  <script>
+    const flipbook = document.getElementById('flipbook');
+    const pages = Array.from(flipbook.children);
+    const pageFlip = new St.PageFlip(flipbook, {
+      width: 400,
+      height: 600,
+      size: 'stretch',
+      minWidth: 300,
+      maxWidth: 600,
+      minHeight: 400,
+      maxHeight: 800,
+      drawShadow: true,
+      flippingTime: 600,
+      usePortrait: true,
+      startZIndex: 0,
+      autoSize: true,
+      maxShadowOpacity: 0.5,
+      showPageCorners: true,
+      disableFlipByClick: false,
+      useMouseEvents: true,
+      swipeDistance: 30,
+      clickEventForward: true,
+      mobileScrollSupport: true
+    });
+
+    pageFlip.loadFromHTML(pages);
+    pageFlip.on('flip', e => {
+      const percent = Math.round((e.data + 1) / pages.length * 100);
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressText').textContent = percent + '%';
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
+    document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
+
+    let zoom = 1;
+    const updateZoom = () => {
+      flipbook.style.transform = `scale(${zoom})`;
+      document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
+    };
+    document.getElementById('zoomIn').addEventListener('click', () => { zoom += 0.2; updateZoom(); });
+    document.getElementById('zoomOut').addEventListener('click', () => { zoom -= 0.2; updateZoom(); });
+    document.getElementById('resetZoom').addEventListener('click', () => { zoom = 1; updateZoom(); });
+  </script>
+</body>
+</html>
