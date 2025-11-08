@@ -56,7 +56,7 @@
       top: 50%;
       transform: translateY(-50%);
       color: #b8860b;
-      font-size: 18px;
+      font-size: 20px;
       opacity: 0.6;
     }
     
@@ -80,7 +80,7 @@
     
     .logo h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: #f4e4d4;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -89,7 +89,7 @@
     
     .logo::before {
       content: '♔';
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #b8860b;
     }
     
@@ -129,15 +129,23 @@
       border-color: #d4af37;
     }
     
+    #zoomLevel {
+      font-size: 12px;
+      color: #d4af37;
+      min-width: 45px;
+      text-align: center;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-weight: 500;
+    }
+    
     .main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 30px;
+      padding: 12px;
       z-index: 10;
-      width: 100%;
     }
     
     .flipbook-container {
@@ -148,11 +156,8 @@
         inset 0 0 20px rgba(184, 134, 11, 0.1);
       border-radius: 4px;
       overflow: hidden;
+      transition: transform 0.3s ease;
       background: #1a1410;
-      width: 900px;
-      height: 650px;
-      max-width: 90vw;
-      max-height: 75vh;
     }
     
     .flipbook {
@@ -171,17 +176,12 @@
       position: absolute;
       top: 0;
       left: 0;
-      padding: 0;
-      margin: 0;
     }
     
     .page img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      display: block;
-      padding: 0;
-      margin: 0;
     }
     
     .nav-btn {
@@ -191,8 +191,8 @@
       background: rgba(26, 20, 16, 0.9);
       color: #d4af37;
       border: 1px solid rgba(184, 134, 11, 0.3);
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border-radius: 4px;
       cursor: pointer;
       z-index: 10;
@@ -200,7 +200,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      font-size: 18px;
+      font-size: 16px;
     }
     
     .nav-btn:hover {
@@ -211,12 +211,12 @@
       box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3);
     }
     
-    .nav-btn.left { left: -60px; }
-    .nav-btn.right { right: -60px; }
+    .nav-btn.left { left: 12px; }
+    .nav-btn.right { right: 12px; }
     
     .footer {
       background: linear-gradient(90deg, rgba(26,20,16,0.95) 0%, rgba(44,24,16,0.95) 50%, rgba(26,20,16,0.95) 100%);
-      padding: 12px 20px;
+      padding: 10px 20px;
       border-top: 2px solid #b8860b;
       position: relative;
       z-index: 100;
@@ -267,7 +267,7 @@
       align-items: center;
       gap: 10px;
       flex: 1;
-      max-width: 300px;
+      max-width: 250px;
     }
     
     .progress-bar {
@@ -287,7 +287,7 @@
     
     .thumbnails {
       position: fixed;
-      bottom: 80px;
+      bottom: 60px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -309,8 +309,8 @@
     }
     
     .thumbnail {
-      width: 50px;
-      height: 70px;
+      width: 45px;
+      height: 63px;
       border: 1px solid rgba(184, 134, 11, 0.3);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -340,7 +340,7 @@
     
     .toggle-thumbnails {
       position: fixed;
-      bottom: 20px;
+      bottom: 15px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(26, 20, 16, 0.9);
@@ -368,8 +368,8 @@
     
     .shortcut-hint {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 15px;
+      right: 15px;
       font-size: 10px;
       color: rgba(212, 175, 55, 0.4);
       font-family: 'SF Mono', Monaco, monospace;
@@ -377,21 +377,14 @@
     }
     
     /* Palace-style icons */
+    .icon-zoom-in::before { content: '✚'; }
+    .icon-zoom-out::before { content: '✖'; }
+    .icon-reset::before { content: '⟲'; }
     .icon-prev::before { content: '◀'; }
     .icon-next::before { content: '▶'; }
     .icon-grid::before { content: '▦'; }
     
-    @media (max-width: 1024px) {
-      .flipbook-container {
-        width: 750px;
-        height: 550px;
-      }
-      
-      .nav-btn.left { left: -55px; }
-      .nav-btn.right { right: -55px; }
-    }
-    
-    @media (max-width: 768px) {
+    @media (max-width: 640px) {
       .header-content {
         padding: 0 10px;
       }
@@ -407,37 +400,14 @@
       }
       
       .nav-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-      
-      .nav-btn.left { 
-        left: 10px; 
-        top: 20px;
-        transform: translateY(0);
-      }
-      
-      .nav-btn.right { 
-        right: 10px; 
-        top: 20px;
-        transform: translateY(0);
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
       }
       
       .thumbnail {
-        width: 40px;
-        height: 56px;
-      }
-      
-      .flipbook-container {
-        width: 95vw;
-        height: 70vh;
-        max-width: 500px;
-        max-height: 600px;
-      }
-      
-      .main {
-        padding: 20px;
+        width: 36px;
+        height: 50px;
       }
       
       .header::before,
@@ -457,6 +427,10 @@
       </div>
       
       <div class="controls">
+        <button class="control-btn icon-zoom-out" id="zoomOut" title="Kichiklashtirish"></button>
+        <span id="zoomLevel">100%</span>
+        <button class="control-btn icon-zoom-in" id="zoomIn" title="Kattalashtirish"></button>
+        <button class="control-btn icon-reset" id="resetZoom" title="Asl holat"></button>
         <button class="control-btn icon-grid" id="toggleThumbnails" title="Miniaturalar"></button>
       </div>
     </div>
@@ -554,26 +528,22 @@
         });
       });
       
-      // Get container dimensions
-      const containerWidth = flipbookContainer.offsetWidth;
-      const containerHeight = flipbookContainer.offsetHeight;
-      
-      // Initialize PageFlip with medium size
+      // Initialize PageFlip with palace settings
       const pageFlip = new St.PageFlip(flipbookEl, {
-        width: containerWidth,
-        height: containerHeight,
+        width: 360,
+        height: 520,
         size: 'stretch',
-        minWidth: 500,
-        maxWidth: 1200,
-        minHeight: 400,
-        maxHeight: 800,
+        minWidth: 260,
+        maxWidth: 520,
+        minHeight: 360,
+        maxHeight: 720,
         drawShadow: true,
         flippingTime: 500,
         usePortrait: true,
         showPageCorners: true,
         disableFlipByClick: false,
         useMouseEvents: true,
-        swipeDistance: 30,
+        swipeDistance: 25,
         mobileScrollSupport: true
       });
       
@@ -598,6 +568,32 @@
       document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
       document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
       
+      // Zoom controls
+      let zoom = 1;
+      const updateZoom = () => {
+        flipbookContainer.style.transform = `scale(${zoom})`;
+        document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
+      };
+      
+      document.getElementById('zoomIn').addEventListener('click', () => {
+        if (zoom < 1.5) {
+          zoom += 0.1;
+          updateZoom();
+        }
+      });
+      
+      document.getElementById('zoomOut').addEventListener('click', () => {
+        if (zoom > 0.7) {
+          zoom -= 0.1;
+          updateZoom();
+        }
+      });
+      
+      document.getElementById('resetZoom').addEventListener('click', () => {
+        zoom = 1;
+        updateZoom();
+      });
+      
       // Toggle thumbnails
       function toggleThumbnails() {
         thumbnailsContainer.classList.toggle('visible');
@@ -616,21 +612,22 @@
           case 'ArrowRight':
             pageFlip.flipNext();
             break;
+          case '+':
+          case '=':
+            document.getElementById('zoomIn').click();
+            break;
+          case '-':
+          case '_':
+            document.getElementById('zoomOut').click();
+            break;
+          case '0':
+            document.getElementById('resetZoom').click();
+            break;
           case 't':
           case 'T':
             toggleThumbnails();
             break;
         }
-      });
-      
-      // Handle window resize
-      window.addEventListener('resize', () => {
-        const newWidth = flipbookContainer.offsetWidth;
-        const newHeight = flipbookContainer.offsetHeight;
-        pageFlip.updateSize({
-          width: newWidth,
-          height: newHeight
-        });
       });
       
       // Initialize
