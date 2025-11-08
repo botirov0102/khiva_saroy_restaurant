@@ -1,222 +1,638 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>khiva_saroy_restaurant</title>
+  <title>Xon Saroy - Khiva Restaurant</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+    
+    *, *::before, *::after { 
+      box-sizing: border-box; 
       margin: 0;
-      font-family: Inter, Helvetica Neue, Arial, Noto Sans, sans-serif;
-      background-image: url('https://res.cloudinary.com/dsfjba640/image/upload/v1757185033/bg-mainer-Bzc1wN1C.webp');
-      background-size: cover;
-      background-position: center;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a1410 0%, #2c1810 50%, #1a1410 100%);
+      color: #f4e4d4;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      position: relative;
     }
-    .header, .footer {
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      border-bottom: 1px solid #374151;
-      padding: 12px;
-      color: white;
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(184, 134, 11, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,50 Q25,45 50,50 T100,50" stroke="rgba(184,134,11,0.05)" fill="none"/></svg>');
+      background-size: 100% 100%, 100% 100%, 100px 100px;
+      pointer-events: none;
+      z-index: 0;
     }
+    
     .header {
+      background: linear-gradient(90deg, rgba(26,20,16,0.95) 0%, rgba(44,24,16,0.95) 50%, rgba(26,20,16,0.95) 100%);
+      padding: 10px 20px;
+      border-bottom: 2px solid #b8860b;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(184, 134, 11, 0.2);
+    }
+    
+    .header::before,
+    .header::after {
+      content: '❦';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b8860b;
+      font-size: 20px;
+      opacity: 0.6;
+    }
+    
+    .header::before { left: 20px; }
+    .header::after { right: 20px; }
+    
+    .header-content {
+      max-width: 100%;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 80rem;
-      margin: 0 auto;
-      width: 100%;
+      position: relative;
     }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f4e4d4;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 0.1em;
+    }
+    
+    .logo::before {
+      content: '♔';
+      font-size: 1.2rem;
+      color: #b8860b;
+    }
+    
     .controls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .controls button {
-      background: #374151;
-      color: #d1d5db;
-      border: none;
-      padding: 8px;
-      border-radius: 8px;
+    
+    .control-btn {
+      background: rgba(184, 134, 11, 0.1);
+      color: #d4af37;
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      position: relative;
     }
-    .controls button:hover { background: #4b5563; }
+    
+    .control-btn:hover {
+      background: rgba(184, 134, 11, 0.2);
+      color: #f4e4d4;
+      border-color: #b8860b;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(184, 134, 11, 0.2);
+    }
+    
+    .control-btn.active {
+      background: rgba(184, 134, 11, 0.3);
+      color: #f4e4d4;
+      border-color: #d4af37;
+    }
+    
+    #zoomLevel {
+      font-size: 12px;
+      color: #d4af37;
+      min-width: 45px;
+      text-align: center;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-weight: 500;
+    }
+    
     .main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 16px;
-    }
-    .flipbook {
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
       padding: 12px;
-      cursor: pointer;
       z-index: 10;
     }
-    .nav-btn.left { left: 16px; }
-    .nav-btn.right { right: 16px; }
-    .progress-bar {
-      background: #374151;
-      height: 8px;
-      border-radius: 9999px;
+    
+    .flipbook-container {
+      position: relative;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(184, 134, 11, 0.3),
+        inset 0 0 20px rgba(184, 134, 11, 0.1);
+      border-radius: 4px;
       overflow: hidden;
-      flex: 1;
-      max-width: 28rem;
+      transition: transform 0.3s ease;
+      background: #1a1410;
     }
-    .progress-fill {
+    
+    .flipbook {
+      width: 100%;
       height: 100%;
-      background: linear-gradient(to right, #16a34a, #15803d);
-      transition: width 0.3s ease;
+      position: relative;
     }
+    
     .page {
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: white;
+      background: #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
+    
     .page img {
       width: 100%;
       height: 100%;
+      object-fit: contain;
+    }
+    
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(26, 20, 16, 0.9);
+      color: #d4af37;
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    
+    .nav-btn:hover {
+      background: rgba(184, 134, 11, 0.2);
+      color: #f4e4d4;
+      border-color: #b8860b;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3);
+    }
+    
+    .nav-btn.left { left: 12px; }
+    .nav-btn.right { right: 12px; }
+    
+    .footer {
+      background: linear-gradient(90deg, rgba(26,20,16,0.95) 0%, rgba(44,24,16,0.95) 50%, rgba(26,20,16,0.95) 100%);
+      padding: 10px 20px;
+      border-top: 2px solid #b8860b;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(184, 134, 11, 0.2);
+    }
+    
+    .footer::before,
+    .footer::after {
+      content: '❦';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b8860b;
+      font-size: 16px;
+      opacity: 0.6;
+    }
+    
+    .footer::before { left: 20px; }
+    .footer::after { right: 20px; }
+    
+    .footer-content {
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+    }
+    
+    .page-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #d4af37;
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+    }
+    
+    .page-indicator span.current {
+      color: #f4e4d4;
+      font-weight: 700;
+    }
+    
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 250px;
+    }
+    
+    .progress-bar {
+      flex: 1;
+      height: 3px;
+      background: rgba(184, 134, 11, 0.2);
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #b8860b, #d4af37);
+      transition: width 0.4s ease;
+      border-radius: 2px;
+    }
+    
+    .thumbnails {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      padding: 8px;
+      background: rgba(26, 20, 16, 0.95);
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      border-radius: 4px;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    
+    .thumbnails.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .thumbnail {
+      width: 45px;
+      height: 63px;
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.6;
+      border-radius: 2px;
+    }
+    
+    .thumbnail:hover {
+      opacity: 0.8;
+      border-color: #b8860b;
+      transform: scale(1.05);
+    }
+    
+    .thumbnail.active {
+      opacity: 1;
+      border-color: #d4af37;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+    
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      display: block;
+      border-radius: 1px;
+    }
+    
+    .toggle-thumbnails {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(26, 20, 16, 0.9);
+      color: #d4af37;
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      z-index: 40;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .toggle-thumbnails:hover {
+      color: #f4e4d4;
+      border-color: #b8860b;
+      background: rgba(184, 134, 11, 0.1);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 4px 12px rgba(184, 134, 11, 0.2);
+    }
+    
+    .shortcut-hint {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      font-size: 10px;
+      color: rgba(212, 175, 55, 0.4);
+      font-family: 'SF Mono', Monaco, monospace;
+      opacity: 0.6;
+    }
+    
+    /* Palace-style icons */
+    .icon-zoom-in::before { content: '✚'; }
+    .icon-zoom-out::before { content: '✖'; }
+    .icon-reset::before { content: '⟲'; }
+    .icon-prev::before { content: '◀'; }
+    .icon-next::before { content: '▶'; }
+    .icon-grid::before { content: '▦'; }
+    
+    @media (max-width: 640px) {
+      .header-content {
+        padding: 0 10px;
+      }
+      
+      .logo h1 {
+        font-size: 1.1rem;
+      }
+      
+      .control-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+      }
+      
+      .nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+      
+      .thumbnail {
+        width: 36px;
+        height: 50px;
+      }
+      
+      .header::before,
+      .header::after,
+      .footer::before,
+      .footer::after {
+        font-size: 14px;
+      }
     }
   </style>
-  <base target="_blank">
 </head>
 <body>
-  <div class="header">
-    <h1>khiva restaurant</h1>
-    <div class="controls">
-      <button id="zoomOut">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M8 11h6"/>
-        </svg>
-      </button>
-      <span id="zoomLevel">100%</span>
-      <button id="zoomIn">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6m-3-3h6"/>
-        </svg>
-      </button>
-      <button id="resetZoom">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <div class="main">
-    <button class="nav-btn left" id="prevBtn">
-      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path d="m15 18-6-6 6-6"/>
-      </svg>
-    </button>
-
-    <div class="flipbook" id="flipbook">
-      <!-- 1–20 gacha rasmlar -->
-      <div class="page"><img src="1.jpg" alt="page 1"/></div>
-      <div class="page"><img src="2.jpg" alt="page 2"/></div>
-      <div class="page"><img src="3.jpg" alt="page 3"/></div>
-      <div class="page"><img src="4.jpg" alt="page 4"/></div>
-      <div class="page"><img src="5.jpg" alt="page 5"/></div>
-      <div class="page"><img src="6.jpg" alt="page 6"/></div>
-      <div class="page"><img src="7.jpg" alt="page 7"/></div>
-      <div class="page"><img src="8.jpg" alt="page 8"/></div>
-      <div class="page"><img src="9.jpg" alt="page 9"/></div>
-      <div class="page"><img src="10.jpg" alt="page 10"/></div>
-      <div class="page"><img src="11.jpg" alt="page 11"/></div>
-      <div class="page"><img src="12.jpg" alt="page 12"/></div>
-      <div class="page"><img src="13.jpg" alt="page 13"/></div>
-      <div class="page"><img src="14.jpg" alt="page 14"/></div>
-      <div class="page"><img src="15.jpg" alt="page 15"/></div>
-      <div class="page"><img src="16.jpg" alt="page 16"/></div>
-      <div class="page"><img src="17.jpg" alt="page 17"/></div>
-      <div class="page"><img src="18.jpg" alt="page 18"/></div>
-      <div class="page"><img src="19.jpg" alt="page 19"/></div>
-      <div class="page"><img src="20.jpg" alt="page 20"/></div>
-    </div>
-
-    <button class="nav-btn right" id="nextBtn">
-      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path d="m9 18 6-6-6-6"/>
-      </svg>
-    </button>
-  </div>
-
-  <div class="footer">
-    <div style="max-width: 80rem; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 16px;">
-      <span style="color: #d1d5db; font-size: 14px;">Progress:</span>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <h1>XON SAROY</h1>
       </div>
-      <span style="color: #d1d5db; font-size: 14px;" id="progressText">0%</span>
+      
+      <div class="controls">
+        <button class="control-btn icon-zoom-out" id="zoomOut" title="Kichiklashtirish"></button>
+        <span id="zoomLevel">100%</span>
+        <button class="control-btn icon-zoom-in" id="zoomIn" title="Kattalashtirish"></button>
+        <button class="control-btn icon-reset" id="resetZoom" title="Asl holat"></button>
+        <button class="control-btn icon-grid" id="toggleThumbnails" title="Miniaturalar"></button>
+      </div>
     </div>
+  </header>
+
+  <main class="main">
+    <button class="nav-btn left icon-prev" id="prevBtn" title="Oldingi"></button>
+
+    <div class="flipbook-container" id="flipbookContainer">
+      <div class="flipbook" id="flipbook">
+        <!-- Pages 1-22 -->
+        <div class="page"><img src="1.jpg" alt="Sahifa 1" loading="lazy"/></div>
+        <div class="page"><img src="2.jpg" alt="Sahifa 2" loading="lazy"/></div>
+        <div class="page"><img src="3.jpg" alt="Sahifa 3" loading="lazy"/></div>
+        <div class="page"><img src="4.jpg" alt="Sahifa 4" loading="lazy"/></div>
+        <div class="page"><img src="5.jpg" alt="Sahifa 5" loading="lazy"/></div>
+        <div class="page"><img src="6.jpg" alt="Sahifa 6" loading="lazy"/></div>
+        <div class="page"><img src="7.jpg" alt="Sahifa 7" loading="lazy"/></div>
+        <div class="page"><img src="8.jpg" alt="Sahifa 8" loading="lazy"/></div>
+        <div class="page"><img src="9.jpg" alt="Sahifa 9" loading="lazy"/></div>
+        <div class="page"><img src="10.jpg" alt="Sahifa 10" loading="lazy"/></div>
+        <div class="page"><img src="11.jpg" alt="Sahifa 11" loading="lazy"/></div>
+        <div class="page"><img src="12.jpg" alt="Sahifa 12" loading="lazy"/></div>
+        <div class="page"><img src="13.jpg" alt="Sahifa 13" loading="lazy"/></div>
+        <div class="page"><img src="14.jpg" alt="Sahifa 14" loading="lazy"/></div>
+        <div class="page"><img src="15.jpg" alt="Sahifa 15" loading="lazy"/></div>
+        <div class="page"><img src="16.jpg" alt="Sahifa 16" loading="lazy"/></div>
+        <div class="page"><img src="17.jpg" alt="Sahifa 17" loading="lazy"/></div>
+        <div class="page"><img src="18.jpg" alt="Sahifa 18" loading="lazy"/></div>
+        <div class="page"><img src="19.jpg" alt="Sahifa 19" loading="lazy"/></div>
+        <div class="page"><img src="20.jpg" alt="Sahifa 20" loading="lazy"/></div>
+        <div class="page"><img src="21.jpg" alt="Sahifa 21" loading="lazy"/></div>
+        <div class="page"><img src="22.jpg" alt="Sahifa 22" loading="lazy"/></div>
+      </div>
+    </div>
+
+    <button class="nav-btn right icon-next" id="nextBtn" title="Keyingi"></button>
+  </main>
+
+  <div class="thumbnails" id="thumbnails">
+    <!-- Thumbnails will be generated by JavaScript -->
   </div>
+
+  <button class="toggle-thumbnails" id="thumbnailToggle">MINIATURALAR</button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="page-indicator">
+        <span class="current" id="currentPage">1</span>
+        <span>/</span>
+        <span id="totalPages">22</span>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="shortcut-hint">← → tugmalaridan foydalaning</div>
 
   <!-- PageFlip JS -->
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
   <script>
-    const flipbook = document.getElementById('flipbook');
-    const pages = Array.from(flipbook.children);
-    const pageFlip = new St.PageFlip(flipbook, {
-      width: 400,
-      height: 600,
-      size: 'stretch',
-      minWidth: 300,
-      maxWidth: 600,
-      minHeight: 400,
-      maxHeight: 800,
-      drawShadow: true,
-      flippingTime: 600,
-      usePortrait: true,
-      startZIndex: 0,
-      autoSize: true,
-      maxShadowOpacity: 0.5,
-      showPageCorners: true,
-      disableFlipByClick: false,
-      useMouseEvents: true,
-      swipeDistance: 30,
-      clickEventForward: true,
-      mobileScrollSupport: true
+    document.addEventListener('DOMContentLoaded', function() {
+      const flipbookEl = document.getElementById('flipbook');
+      const flipbookContainer = document.getElementById('flipbookContainer');
+      const pages = Array.from(flipbookEl.children);
+      const thumbnailsContainer = document.getElementById('thumbnails');
+      const currentPageEl = document.getElementById('currentPage');
+      const totalPagesEl = document.getElementById('totalPages');
+      const thumbnailToggle = document.getElementById('thumbnailToggle');
+      
+      totalPagesEl.textContent = pages.length;
+      
+      // Create thumbnails
+      pages.forEach((page, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'thumbnail';
+        thumbnail.dataset.page = index;
+        
+        const img = document.createElement('img');
+        img.src = `${index + 1}.jpg`;
+        img.alt = `Sahifa ${index + 1}`;
+        img.loading = 'lazy';
+        
+        thumbnail.appendChild(img);
+        thumbnailsContainer.appendChild(thumbnail);
+        
+        thumbnail.addEventListener('click', () => {
+          pageFlip.flip(index);
+          updateActiveThumbnail(index);
+        });
+      });
+      
+      // Initialize PageFlip with palace settings
+      const pageFlip = new St.PageFlip(flipbookEl, {
+        width: 360,
+        height: 520,
+        size: 'stretch',
+        minWidth: 260,
+        maxWidth: 520,
+        minHeight: 360,
+        maxHeight: 720,
+        drawShadow: true,
+        flippingTime: 500,
+        usePortrait: true,
+        showPageCorners: true,
+        disableFlipByClick: false,
+        useMouseEvents: true,
+        swipeDistance: 25,
+        mobileScrollSupport: true
+      });
+      
+      pageFlip.loadFromHTML(pages);
+      
+      function updateActiveThumbnail(pageIndex) {
+        document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+          thumb.classList.toggle('active', index === pageIndex);
+        });
+      }
+      
+      pageFlip.on('flip', (e) => {
+        const pageIndex = e.data;
+        const percent = Math.round((pageIndex + 1) / pages.length * 100);
+        
+        document.getElementById('progressBar').style.width = percent + '%';
+        currentPageEl.textContent = pageIndex + 1;
+        updateActiveThumbnail(pageIndex);
+      });
+      
+      // Navigation
+      document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
+      document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
+      
+      // Zoom controls
+      let zoom = 1;
+      const updateZoom = () => {
+        flipbookContainer.style.transform = `scale(${zoom})`;
+        document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
+      };
+      
+      document.getElementById('zoomIn').addEventListener('click', () => {
+        if (zoom < 1.5) {
+          zoom += 0.1;
+          updateZoom();
+        }
+      });
+      
+      document.getElementById('zoomOut').addEventListener('click', () => {
+        if (zoom > 0.7) {
+          zoom -= 0.1;
+          updateZoom();
+        }
+      });
+      
+      document.getElementById('resetZoom').addEventListener('click', () => {
+        zoom = 1;
+        updateZoom();
+      });
+      
+      // Toggle thumbnails
+      function toggleThumbnails() {
+        thumbnailsContainer.classList.toggle('visible');
+        thumbnailToggle.style.opacity = thumbnailsContainer.classList.contains('visible') ? '1' : '0.7';
+      }
+      
+      document.getElementById('toggleThumbnails').addEventListener('click', toggleThumbnails);
+      thumbnailToggle.addEventListener('click', toggleThumbnails);
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        switch(e.key) {
+          case 'ArrowLeft':
+            pageFlip.flipPrev();
+            break;
+          case 'ArrowRight':
+            pageFlip.flipNext();
+            break;
+          case '+':
+          case '=':
+            document.getElementById('zoomIn').click();
+            break;
+          case '-':
+          case '_':
+            document.getElementById('zoomOut').click();
+            break;
+          case '0':
+            document.getElementById('resetZoom').click();
+            break;
+          case 't':
+          case 'T':
+            toggleThumbnails();
+            break;
+        }
+      });
+      
+      // Initialize
+      updateActiveThumbnail(0);
     });
-
-    pageFlip.loadFromHTML(pages);
-    pageFlip.on('flip', e => {
-      const percent = Math.round((e.data + 1) / pages.length * 100);
-      document.getElementById('progressBar').style.width = percent + '%';
-      document.getElementById('progressText').textContent = percent + '%';
-    });
-
-    document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
-    document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
-
-    let zoom = 1;
-    const updateZoom = () => {
-      flipbook.style.transform = `scale(${zoom})`;
-      document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
-    };
-    document.getElementById('zoomIn').addEventListener('click', () => { zoom += 0.2; updateZoom(); });
-    document.getElementById('zoomOut').addEventListener('click', () => { zoom -= 0.2; updateZoom(); });
-    document.getElementById('resetZoom').addEventListener('click', () => { zoom = 1; updateZoom(); });
   </script>
 </body>
-</html> 
-           
+</html>
