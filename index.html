@@ -42,7 +42,7 @@
     
     .header {
       background: linear-gradient(90deg, rgba(26,20,16,0.95) 0%, rgba(44,24,16,0.95) 50%, rgba(26,20,16,0.95) 100%);
-      padding: 8px 20px;
+      padding: 10px 20px;
       border-bottom: 2px solid #b8860b;
       position: relative;
       z-index: 100;
@@ -135,8 +135,9 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 8px;
+      padding: 30px;
       z-index: 10;
+      width: 100%;
     }
     
     .flipbook-container {
@@ -148,10 +149,10 @@
       border-radius: 4px;
       overflow: hidden;
       background: #1a1410;
-      width: 90vw;
-      height: 85vh;
-      max-width: 800px;
-      max-height: 1000px;
+      width: 900px;
+      height: 650px;
+      max-width: 90vw;
+      max-height: 75vh;
     }
     
     .flipbook {
@@ -170,12 +171,17 @@
       position: absolute;
       top: 0;
       left: 0;
+      padding: 0;
+      margin: 0;
     }
     
     .page img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      display: block;
+      padding: 0;
+      margin: 0;
     }
     
     .nav-btn {
@@ -185,8 +191,8 @@
       background: rgba(26, 20, 16, 0.9);
       color: #d4af37;
       border: 1px solid rgba(184, 134, 11, 0.3);
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 4px;
       cursor: pointer;
       z-index: 10;
@@ -194,7 +200,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      font-size: 16px;
+      font-size: 18px;
     }
     
     .nav-btn:hover {
@@ -205,12 +211,12 @@
       box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3);
     }
     
-    .nav-btn.left { left: 12px; }
-    .nav-btn.right { right: 12px; }
+    .nav-btn.left { left: -60px; }
+    .nav-btn.right { right: -60px; }
     
     .footer {
       background: linear-gradient(90deg, rgba(26,20,16,0.95) 0%, rgba(44,24,16,0.95) 50%, rgba(26,20,16,0.95) 100%);
-      padding: 8px 20px;
+      padding: 12px 20px;
       border-top: 2px solid #b8860b;
       position: relative;
       z-index: 100;
@@ -224,7 +230,7 @@
       top: 50%;
       transform: translateY(-50%);
       color: #b8860b;
-      font-size: 14px;
+      font-size: 16px;
       opacity: 0.6;
     }
     
@@ -261,7 +267,7 @@
       align-items: center;
       gap: 10px;
       flex: 1;
-      max-width: 250px;
+      max-width: 300px;
     }
     
     .progress-bar {
@@ -281,7 +287,7 @@
     
     .thumbnails {
       position: fixed;
-      bottom: 55px;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -303,8 +309,8 @@
     }
     
     .thumbnail {
-      width: 45px;
-      height: 63px;
+      width: 50px;
+      height: 70px;
       border: 1px solid rgba(184, 134, 11, 0.3);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -334,13 +340,13 @@
     
     .toggle-thumbnails {
       position: fixed;
-      bottom: 12px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(26, 20, 16, 0.9);
       color: #d4af37;
       border: 1px solid rgba(184, 134, 11, 0.3);
-      padding: 6px 14px;
+      padding: 8px 16px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 11px;
@@ -362,8 +368,8 @@
     
     .shortcut-hint {
       position: fixed;
-      bottom: 12px;
-      right: 15px;
+      bottom: 20px;
+      right: 20px;
       font-size: 10px;
       color: rgba(212, 175, 55, 0.4);
       font-family: 'SF Mono', Monaco, monospace;
@@ -374,6 +380,16 @@
     .icon-prev::before { content: '◀'; }
     .icon-next::before { content: '▶'; }
     .icon-grid::before { content: '▦'; }
+    
+    @media (max-width: 1024px) {
+      .flipbook-container {
+        width: 750px;
+        height: 550px;
+      }
+      
+      .nav-btn.left { left: -55px; }
+      .nav-btn.right { right: -55px; }
+    }
     
     @media (max-width: 768px) {
       .header-content {
@@ -391,26 +407,44 @@
       }
       
       .nav-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      
+      .nav-btn.left { 
+        left: 10px; 
+        top: 20px;
+        transform: translateY(0);
+      }
+      
+      .nav-btn.right { 
+        right: 10px; 
+        top: 20px;
+        transform: translateY(0);
       }
       
       .thumbnail {
-        width: 36px;
-        height: 50px;
+        width: 40px;
+        height: 56px;
       }
       
       .flipbook-container {
         width: 95vw;
-        height: 80vh;
+        height: 70vh;
+        max-width: 500px;
+        max-height: 600px;
+      }
+      
+      .main {
+        padding: 20px;
       }
       
       .header::before,
       .header::after,
       .footer::before,
       .footer::after {
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   </style>
@@ -520,22 +554,26 @@
         });
       });
       
-      // Initialize PageFlip with larger size
+      // Get container dimensions
+      const containerWidth = flipbookContainer.offsetWidth;
+      const containerHeight = flipbookContainer.offsetHeight;
+      
+      // Initialize PageFlip with medium size
       const pageFlip = new St.PageFlip(flipbookEl, {
-        width: flipbookContainer.offsetWidth,
-        height: flipbookContainer.offsetHeight,
+        width: containerWidth,
+        height: containerHeight,
         size: 'stretch',
-        minWidth: 300,
+        minWidth: 500,
         maxWidth: 1200,
         minHeight: 400,
-        maxHeight: 1400,
+        maxHeight: 800,
         drawShadow: true,
         flippingTime: 500,
         usePortrait: true,
         showPageCorners: true,
         disableFlipByClick: false,
         useMouseEvents: true,
-        swipeDistance: 25,
+        swipeDistance: 30,
         mobileScrollSupport: true
       });
       
@@ -587,9 +625,11 @@
       
       // Handle window resize
       window.addEventListener('resize', () => {
+        const newWidth = flipbookContainer.offsetWidth;
+        const newHeight = flipbookContainer.offsetHeight;
         pageFlip.updateSize({
-          width: flipbookContainer.offsetWidth,
-          height: flipbookContainer.offsetHeight
+          width: newWidth,
+          height: newHeight
         });
       });
       
